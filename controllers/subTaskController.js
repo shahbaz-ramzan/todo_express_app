@@ -3,7 +3,6 @@ const Task = require("../models/task");
 const mongoose = require("mongoose"); 
 
 const addSubTask = async (req, res) => {
-  console.log("1: ------------------------------");
   try {
     const task = await Task.findById(req.params.id);
     if (!task) return res.status(404).json({ message: "Task not found" });

@@ -4,15 +4,12 @@ const Category = require("../models/category");
 const createCategory = async (req, res) => {
   try {
     const { category } = req.body;
-
     const existingCategory = await Category.findOne({ category });
     if (existingCategory) {
       return res.status(400).json({ error: "Category already exists!" });
     }
-
     const newCategory = new Category({ category });
     await newCategory.save();
-
     res.status(201).json({
       message: "Category created successfully",
       data: newCategory,
@@ -24,7 +21,6 @@ const createCategory = async (req, res) => {
 };
 
 const getAllCategories = async (req, res) => {
-  console.log("2. ------------------------------");
   try {
     const categories = await Category.find({});
     res.status(200).json({ data: categories });
@@ -34,7 +30,6 @@ const getAllCategories = async (req, res) => {
 };
 
 const deleteCategory = async (req, res) => {
-  console.log("3. ------------------------------");
   try {
     const { id } = req.params;
     await Category.findByIdAndDelete(id);

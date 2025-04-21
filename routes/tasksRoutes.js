@@ -14,14 +14,16 @@ const {
 const verifyToken = require("../middleware/authMiddleware");
 const router = express.Router();
 
-router.post("/", verifyToken, createTask);
-router.get("/", getAllTasks);
-router.get("/get/:id", verifyToken, getTask);
-router.delete("/delete/:id", verifyToken, deleteTask);
-router.put("/update/:id", verifyToken, updateTask);
+// Task Routes
+router.post("/create", verifyToken, createTask); 
+router.get("/list",verifyToken, getAllTasks); 
+router.get("/edit/:id", verifyToken, getTask); 
+router.put("/update/:id", verifyToken, updateTask); 
+router.delete("/remove/:id", verifyToken, deleteTask); 
 
-// Subtask routes
-router.post("/:id/subtask", verifyToken, addSubTask);
-router.put("/:id/subtask", verifyToken, editSubTask);
-router.delete("/:id/subtask/:subtaskId", verifyToken, deleteSubTask);
+// Subtask Routes
+router.post("/:id/subtask/create", verifyToken, addSubTask); 
+router.put("/:id/subtask/edit/:subtaskId", verifyToken, editSubTask); 
+router.delete("/:id/subtask/remove/:subtaskId", verifyToken, deleteSubTask); 
+
 module.exports = router;
