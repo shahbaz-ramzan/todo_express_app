@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
 const tasksRoutes = require("./routes/tasksRoutes");
 const categoryRoutes = require("./routes/category");
-const verifyToken = require("./middleware/authMiddleware");
+// const verifyToken = require("./middleware/authMiddleware");
 
 const cors = require("cors");
 
@@ -29,9 +29,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(logger);
 
-app.use("/api/auth", authRoutes);
-app.use("/api/task", tasksRoutes);
-app.use("/api/category", categoryRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/task", tasksRoutes);
+app.use("/api/v1/category", categoryRoutes);
 
 app.use((err, req, res, next) => {
   console.error("Error:", err.stack);
@@ -40,6 +40,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on port ${PORT}`);
 });

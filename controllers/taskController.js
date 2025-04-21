@@ -1,7 +1,6 @@
 const Task = require("../models/task");
 
 const createTask = async (req, res) => {
-
   const { title, description, status } = req.body;
 
   try {
@@ -10,8 +9,10 @@ const createTask = async (req, res) => {
       description,
       status,
       subtasks: [],
+      user: req.user.id, // ✅ attach the logged-in user's ID
       createdAt: new Date(),
     });
+
     await task.save();
     res.status(201).json({ message: "Task created successfully" });
   } catch (error) {
@@ -19,14 +20,16 @@ const createTask = async (req, res) => {
   }
 };
 
+
 const getAllTasks = async (req, res) => {
   try {
-    const tasks = await Task.find({});
+    const tasks = await Task.find({ user: req.user.id }); // ✅ filter by user
     res.status(200).json({ data: tasks });
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }
 };
+
 
 const getTask = async (req, res) => {
   try {
@@ -49,7 +52,6 @@ const deleteTask = async (req, res) => {
 };
 
 const updateTask = async (req, res) => {
-  console.log("req body",req.body);
   const { title, description, status } = req.body;
 
   try {
